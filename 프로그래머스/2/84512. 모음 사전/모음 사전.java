@@ -5,18 +5,8 @@ class Solution {
     private String[] words = {"A", "E", "I", "O", "U"};
     
     public int solution(String word) {
-        int answer = 0;
-        
         makeDictionary("", 0);
-        
-        for(int i=0; i<list.size(); i++){
-            if (list.get(i).equals(word)){
-                answer = i;
-                break;
-            }
-        }
-        
-        return answer;
+        return list.indexOf(word);
     }
     
     
