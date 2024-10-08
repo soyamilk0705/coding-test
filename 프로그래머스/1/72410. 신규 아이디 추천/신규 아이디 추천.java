@@ -2,52 +2,72 @@ import java.util.*;
 
 class Solution {
     public String solution(String new_id) {
-        // 1단계
-        new_id = new_id.toLowerCase();
+        String s = new KAKAOID(new_id)
+            .replaceToLowerCase()
+            .filter()
+            .toSingleDot()
+            .noStartEndDot()
+            .noBlank()
+            .noGreaterThan16()
+            .noLessThan2()
+            .getResult();
         
-        // 2단계
-        String[] enableStr = {"~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "=", 
-                            "+", "[", "{", "]", "}", ":", "?", ",", "<", ">", "/"};
+        return s;
+    }
+    
+    private static class KAKAOID{
+        private String s;
         
-        for(int i=0; i<enableStr.length; i++){
-            if(new_id.contains(enableStr[i])){
-                new_id = new_id.replace(enableStr[i], "");
-            }    
+        KAKAOID(String s){
+            this.s = s;
         }
         
-        // 3단계
-        while (new_id.contains("..")){
-            new_id = new_id.replace("..", ".");
+        private KAKAOID replaceToLowerCase(){
+            s = s.toLowerCase();
+            return this;
         }
         
-        // 4단계
-        if(new_id.startsWith(".")){
-            new_id = new_id.substring(1, new_id.length());
+        private KAKAOID filter(){
+            s = s.replaceAll("[^a-z0-9._-]", "");
+            return this;
         }
         
-        if(new_id.endsWith(".")){
-            new_id = new_id.substring(0, new_id.length() - 1);
+        private KAKAOID toSingleDot(){
+            s = s.replaceAll("[.]{2,}", ".");
+            return this;
         }
         
-        // 5단계
-        if(new_id.equals("")){
-            new_id = "a";
+        private KAKAOID noStartEndDot(){
+            s = s.replaceAll("^[.]|[.]$", "");
+            return this;
         }
         
-        // 6단계
-        if(new_id.length() >=16){
-            new_id = new_id.substring(0, 15);
-            if (new_id.endsWith(".")){
-                new_id = new_id.substring(0, 14);
+        private KAKAOID noBlank(){
+            s = s.isEmpty() ? "a" : s;
+            return this;
+        }
+        
+        private KAKAOID noGreaterThan16(){
+            if (s.length() >= 16){
+                s = s.substring(0, 15);
             }
-        } else if(new_id.length() <= 2){ // 7단계
-            while(new_id.length() < 3){
-                new_id += new_id.substring(new_id.length()-1);
-            }
+            s = s.replaceAll("[.]$", "");
+            return this;
         }
         
-        System.out.println(new_id);
+        private KAKAOID noLessThan2(){
+            StringBuilder sb = new StringBuilder(s);
+            while (sb.length() <= 2){
+                sb.append(s.charAt(s.length() - 1));
+            }
+            s = sb.toString();
+            return this;
+        }
         
-        return new_id;
+        private String getResult(){
+            return s;
+        }
+        
+        
     }
 }
