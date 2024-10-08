@@ -5,10 +5,7 @@ class Solution {
         String[] arrays = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
         
         for(int i=0; i<arrays.length; i++){
-            
-            if(s.contains(arrays[i])){
-                s = s.replace(arrays[i], String.valueOf(i));
-            }
+           s = s.replaceAll(arrays[i], Integer.toString(i));
         }
         
         
