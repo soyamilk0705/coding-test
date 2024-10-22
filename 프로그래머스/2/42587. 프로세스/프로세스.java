@@ -1,46 +1,40 @@
 import java.util.*;
 
 class Solution {
-    static List<Integer> list = new ArrayList<>();
-    
     public int solution(int[] priorities, int location) {
-        int maxPri = 0;
+        int answer = 0;
+        int l = location;
         
-        Queue<Character> charQue = new LinkedList<>();
-        List<Character> result = new ArrayList<>();
+        Queue<Integer> que = new LinkedList<Integer>();
         
-        for(int i=0; i<priorities.length; i++){
-            charQue.offer((char)('A' + i));
-            list.add(priorities[i]);
-            maxPri = changeMax();
+        
+        for(int i : priorities){
+            que.add(i);
         }
         
-        while(!charQue.isEmpty()){
-            char value = charQue.poll();
-            int pri = list.remove(0);
-            
-            if(pri == maxPri){
-                result.add(value);
-                maxPri = changeMax();
-            }else{
-                charQue.offer(value);
-                list.add(pri);
+        Arrays.sort(priorities);
+        int size = priorities.length-1;
+        
+        while(!que.isEmpty()){
+            Integer value = que.poll();
+
+            if(value == priorities[size - answer]){
+                answer++;
+                l--;
+                if(l < 0)
+                    break;
+            } else{
+                que.add(value);
+                l--;
+                if(l < 0)
+                    l = que.size() - 1;
             }
+        
             
         }
         
-        
-        return result.indexOf((char)('A' + location)) + 1;
+    
+        return answer;
     }
     
-    
-    static int changeMax(){
-        int maxValue = 0;
-        
-        for(int i=0; i<list.size(); i++){
-            maxValue = Math.max(maxValue, list.get(i));
-        }
-        
-        return maxValue;
-    }
 }
