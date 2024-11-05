@@ -5,13 +5,12 @@ class Solution {
         StringBuilder sb = new StringBuilder();        
         String[] strArr = s.split("");
         
-        Arrays.sort(strArr, Comparator.reverseOrder());
+        Arrays.sort(strArr);
         
         for(String st: strArr){
             sb.append(st);
         }
         
-        
-        return sb.toString();
+        return sb.reverse().toString();
     }
 }
