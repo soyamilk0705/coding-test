@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     public String solution(int[] numbers) {    
-        String answer = "";
+        StringBuilder sb = new StringBuilder();
         String[] numberStr = new String[numbers.length];
         
         for(int i=0; i<numbers.length; i++){
@@ -12,13 +12,13 @@ class Solution {
         Arrays.sort(numberStr, (s1, s2) -> (s2+s1).compareTo(s1+s2));
         
         for(String str : numberStr){
-            answer += str;
+            sb.append(str);
         }
         
-        if(answer.charAt(0) == '0'){
-            answer = "0";
+        if(sb.toString().charAt(0) == '0'){
+            return "0";
         }
         
-        return answer;
+        return sb.toString();
     }
 }
