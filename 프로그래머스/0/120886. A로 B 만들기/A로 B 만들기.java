@@ -4,26 +4,11 @@ class Solution {
     public int solution(String before, String after) {
         char[] afterArr = after.toCharArray();
         char[] beforeArr = before.toCharArray();
-        List<Character> list = new ArrayList<>();
         
-        for(int i=0; i<beforeArr.length; i++){
-            list.add(beforeArr[i]);
-        }
+        Arrays.sort(afterArr);
+        Arrays.sort(beforeArr);
         
-        for(int i=0; i<afterArr.length; i++){
-            if(list.contains(afterArr[i])){
-                int index = list.indexOf(afterArr[i]);
-                list.remove(index);
-            }
-        }
+        return new String(afterArr).equals(new String(beforeArr)) ? 1 : 0;
         
-        if(list.isEmpty()){
-            return 1;
-        }
-        
-        
-        
-        
-        return 0;
     }
 }
