@@ -1,58 +1,38 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		
 		int len = Integer.parseInt(br.readLine());
 		
 		for(int i=0; i<len; i++) {
-			StringBuilder sb = new StringBuilder();
-			
 			int n = Integer.parseInt(br.readLine());
-			int[] list = new int[n+1];
+			HashSet<Integer> set = new HashSet<Integer>();
 			
-
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			for(int j=0; j<n; j++) {
-				list[j] = Integer.parseInt(st.nextToken());
-			}
 			
-			Arrays.sort(list);
+			for(int j=0; j<n; j++) {
+				set.add(Integer.parseInt(st.nextToken()));
+			}
 			
 			int m = Integer.parseInt(br.readLine());
+	
 			st = new StringTokenizer(br.readLine());
-			
 			for(int j=0; j<m; j++) {
-				int left = 0;
-				int right = n;
-				int val = Integer.parseInt(st.nextToken());
-				boolean find = false;
-				
-				while(left <= right) {
-					int mid = (left + right) / 2;
-					
-					if(list[mid] == val) {
-						find = true;
-						break;
-					} else if(list[mid] < val) {
-						left = mid + 1;
-					} else {
-						right = mid - 1;
-					}
-				}
-				
-				sb.append(find ? 1 : 0).append("\n");
+				boolean isEquals = set.contains(Integer.parseInt(st.nextToken()));
+				sb.append(isEquals ? 1 : 0).append("\n");
 			}
 			
-			System.out.print(sb);
 			
 		}
+		
+		System.out.println(sb);
 		
 	}
 
