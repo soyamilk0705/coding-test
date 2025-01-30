@@ -2,20 +2,23 @@ import java.util.*;
 
 public class Solution {
     public int[] solution(int []arr) {
-        Stack<Integer> st = new Stack();
-        st.push(arr[0]);
+        Stack<Integer> stack = new Stack<>();
         
-        
-        for(int i=1; i<arr.length; i++){
-            if(st.peek() != arr[i]){
-                st.push(arr[i]);
+        for(int i=0; i<arr.length; i++){
+            if(stack.isEmpty()){
+                stack.push(arr[i]);
+            } else{
+                int temp = stack.peek();
+                if(temp != arr[i]){
+                    stack.push(arr[i]);
+                } 
             }
         }
-
-        int[] answer = new int[st.size()];
         
-        for(int i=st.size()-1; i>-1; i--){
-            answer[i] = st.pop(); 
+        int[] answer = new int[stack.size()];
+        
+        for(int i=stack.size()-1; i>=0; i--){
+            answer[i] = stack.pop();
         }
         
         return answer;
