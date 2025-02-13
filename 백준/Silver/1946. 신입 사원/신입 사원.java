@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -20,7 +18,6 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));	
 		StringBuilder sb = new StringBuilder();
 		int t = Integer.parseInt(br.readLine());
-		List<Recruitment[]> testCases = new ArrayList<>();
 		
 		for(int i=0; i<t; i++) {
 			int n = Integer.parseInt(br.readLine());
@@ -35,27 +32,19 @@ public class Main {
 				recruit[j] = new Recruitment(document, interview);
 			}
 			
-			testCases.add(recruit);
-		}
-		
-		
-		for(int i=0; i<t; i++) {
-			Recruitment[] testCase = testCases.get(i);
-			
-			Arrays.sort(testCase, (o1, o2) ->{
+			Arrays.sort(recruit, (o1, o2) ->{
 				return o1.document - o2.document;
 			});
 			
-			int winI = testCase[0].interview;
+			int winI = recruit[0].interview;
 			int cnt = 1;
 			
-			for(int j=1; j<testCase.length; j++) {
-				if(testCase[j].interview < winI) {
+			for(int j=1; j<recruit.length; j++) {
+				if(recruit[j].interview < winI) {
 					cnt++;
-					winI = testCase[j].interview;
+					winI = recruit[j].interview;
 				}
 			}
-			
 			sb.append(cnt + "\n");
 		}
 		
