@@ -8,29 +8,18 @@ class Solution {
         for(int i=0; i<wallpaper.length; i++){
             String[] temp = wallpaper[i].split("");
             
-            
             for(int j=0; j<temp.length; j++){
                 if(temp[j].equals("#")){
-                    if(i < lux){
-                        lux = i;
-                    }
+                    lux = Math.min(i, lux);
+                    luy = Math.min(j, luy);
+                    rdx = Math.max(i, rdx);
+                    rdy = Math.max(j, rdy);
                     
-                    if(j < luy){
-                        luy = j;
-                    }
-                    
-                    if((i+1) > rdx){
-                        rdx = i+1;
-                    }
-                    
-                    if((j+1) > rdy){
-                        rdy = j+1;
-                    }
                 }
             }
         }
         
-        int[] answer = {lux, luy, rdx, rdy};
+        int[] answer = {lux, luy, rdx+1, rdy+1};
         return answer;
     }
 }
