@@ -1,40 +1,46 @@
 import java.util.*;
 
+class Process{
+    int idx;
+    int value;
+    
+    public Process(int idx, int value){
+        this.idx = idx;
+        this.value = value;
+    }
+}
+
 class Solution {
     public int solution(int[] priorities, int location) {
         int answer = 0;
-        int l = location;
+        Queue<Process> queue = new LinkedList<>();
         
-        Queue<Integer> que = new LinkedList<Integer>();
-        
-        
-        for(int i : priorities){
-            que.add(i);
+        for(int i=0; i<priorities.length; i++){
+            queue.offer(new Process(i, priorities[i]));
         }
         
-        Arrays.sort(priorities);
-        int size = priorities.length-1;
+        while(!queue.isEmpty()){
+            int max = 0;
         
-        while(!que.isEmpty()){
-            Integer value = que.poll();
-
-            if(value == priorities[size - answer]){
-                answer++;
-                l--;
-                if(l < 0)
-                    break;
-            } else{
-                que.add(value);
-                l--;
-                if(l < 0)
-                    l = que.size() - 1;
+            for(int i=0; i<queue.size(); i++){
+                Process tmp = queue.poll();
+                max = Math.max(max, tmp.value);
+                queue.offer(tmp);
             }
+            
+            Process p = queue.poll();
         
+            if(p.value == max){
+                answer++;
+                if(p.idx == location){
+                    break;
+                }
+            } else{
+                queue.offer(p);
+            }
             
         }
         
-    
         return answer;
     }
-    
 }
