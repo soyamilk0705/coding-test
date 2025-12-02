@@ -6,39 +6,33 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
-		char[] answer = new char[n];
 		
 		for(int i=0; i<n; i++) {
-			answer[i] = '0';
-
-			int maxValue = 0;
-			
-			Map<Character, Integer> map = new HashMap<>();
+			int[] count = new int[26];
 			String str = br.readLine();
 			
 			for(char c : str.toCharArray()) {
-				if(c == ' ') continue;
-				
-				map.put(c, map.getOrDefault(c, 0)+1);
-				maxValue = Math.max(maxValue, map.get(c));
+				if (c == ' ') continue;
+				count[c - 'a']++;
 			}
 			
-			for(char key : map.keySet()) {
-				int tmp = map.get(key);
-				
-				if(maxValue == tmp) {
-					if(answer[i] == '0') {
-						answer[i] = key;
-					} else {
-						answer[i] = '?';
-					}
+			int max = 0;
+			for(int v : count) {
+				max = Math.max(max, v);
+			}
+			
+			int maxCount = 0;
+			char result = '?';
+			
+			for(int j=0; j<26; j++) {
+				if(count[j] == max) {
+					maxCount++;
+					result = (char) ('a' + j);
 				}
 			}
 			
-		}
-		
-		for(int i=0; i<n; i++) {
-			System.out.println(answer[i]);
+			if(maxCount > 1) result = '?';
+			System.out.println(result);
 		}
 		
 	}
