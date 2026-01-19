@@ -3,42 +3,36 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 public class Main {
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String str = br.readLine();
+		
 		StringBuilder answer = new StringBuilder();
 		StringBuilder tmp = new StringBuilder();
 		
-		Queue<Character> queue = new LinkedList<>();
 		
-		for(char c : str.toCharArray()) {
-			queue.offer(c);
-		}
-		
-		
-		while(!queue.isEmpty()) {
-			char c = queue.poll();
+		for (int i=0; i<str.length(); i++) {
+			char c = str.charAt(i);
 			
 			if(c == '<') {
 				if(tmp.length() > 0) {
 					answer.append(tmp.reverse().toString());
 					tmp = new StringBuilder();
 				}
-				answer.append("<");
+				answer.append(c);
+				i++;
 				
-				char t = queue.poll();
-				while(t != '>') {
-					answer.append(t);
-					t = queue.poll();
+				while(str.charAt(i) != '>') {
+					answer.append(str.charAt(i));
+					i++;
 				}
 				
 				answer.append(">");
 				
 			} else if(c == ' ') {
-				answer.append(tmp.reverse().toString() + " ");
+				answer.append(tmp.reverse() + " ");
 				tmp = new StringBuilder();
 			} else {
 				tmp.append(c);
@@ -46,10 +40,10 @@ public class Main {
 		}
 		
 		if(tmp.length() > 0) {
-			answer.append(tmp.reverse().toString());
+			answer.append(tmp.reverse());
 		}
 		
-		System.out.println(answer.toString());
+		System.out.println(answer);
 	}
 }
 
