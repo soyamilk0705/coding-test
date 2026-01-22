@@ -3,6 +3,13 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// 실버5
+// https://www.acmicpc.net/problem/20546
+
+// 실버4
+// https://www.acmicpc.net/problem/10828
+
+
 public class Main {
 	
 	public static void main(String[] args) throws Exception {
@@ -15,19 +22,20 @@ public class Main {
 		for(int i=0; i<n; i++) {
 			int num = Integer.parseInt(st.nextToken());
 			
-			if(num == 1) {
+			if(num < 2) {
 				continue;
 			}
 			
-			int cnt = 0;
-			for(int j=2; j<num-1; j++) {
+			boolean isPrime = true;
+			
+			for(int j=2; j*j<=num; j++) {
 				if (num % j == 0) {
-					cnt++;
+					isPrime = false;
 					break;
 				}
 			}
 			
-			if(cnt == 0) {
+			if(isPrime) {
 				answer++;
 			}
 		}
