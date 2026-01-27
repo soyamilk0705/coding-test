@@ -10,7 +10,7 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int n = Integer.parseInt(br.readLine());
 		
-		Queue<Integer> queue = new LinkedList<>();
+		Deque<Integer> queue = new ArrayDeque<>();
 		StringTokenizer st;
 		StringBuilder sb = new StringBuilder();
 		
@@ -19,12 +19,12 @@ public class Main {
 			String str = st.nextToken();
 			
 			if(str.equals("push")) {
-				queue.offer(Integer.parseInt(st.nextToken()));
+				queue.offerLast(Integer.parseInt(st.nextToken()));
 			} else if(str.equals("pop")) {
 				if (queue.isEmpty()) {
 					sb.append("-1\n");
 				} else {
-					sb.append(queue.poll() + "\n");
+					sb.append(queue.pollFirst() + "\n");
 				}
 			} else if(str.equals("size")) {
 				sb.append(queue.size() + "\n");
@@ -38,20 +38,13 @@ public class Main {
 				if(queue.isEmpty()) {
 					sb.append("-1\n");
 				} else {
-					sb.append(queue.peek() + "\n");
+					sb.append(queue.peekFirst() + "\n");
 				}
 			} else if(str.equals("back")) {
 				if(queue.isEmpty()) {
 					sb.append("-1\n");
 				} else {
-					int size = queue.size();
-					for(int j=0; j<queue.size(); j++) {
-						int num = queue.poll();
-						if(j == size-1) {
-							sb.append(num + "\n");
-						}
-						queue.offer(num);
-					}
+					sb.append(queue.peekLast() + "\n");
 				}
 			}
 		}
@@ -60,3 +53,4 @@ public class Main {
 		
 	}
 }
+
