@@ -3,32 +3,24 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 public class Main {
 	static boolean[] visited;
 	static int[][] family;
 	static int end;
-	static int n, answer = 0;
+	static int n;
+	static int answer = -1;
 	
-	static void DFS(int p) {
+	static void DFS(int p, int L) {
+		visited[p] = true;
+		
 		if(p == end) {
-			visited[end] = true;
+			answer = L;
 			return;
-		} else {
-			for(int i=1; i<=n; i++) {
-				if(!visited[p] && family[p][i] == 1) {
-					visited[p] = true;
-					answer++;
-					DFS(i);
-				
-					if(visited[end]) {
-						return;
-					} else {
-						answer--;
-						visited[p] = false;
-					}
-					
-				}
+		} 
+			
+		for(int i=1; i<=n; i++) {
+			if(!visited[i] && family[p][i] == 1) {
+				DFS(i, L+1);
 			}
 		}
 		
@@ -58,11 +50,8 @@ public class Main {
 		}
 		
 		
-		DFS(start);
+		DFS(start, 0);
 		
-		if(!visited[end]) {
-			answer = -1;
-		}
 		
 		System.out.println(answer);
 	}
