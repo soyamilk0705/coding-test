@@ -3,37 +3,39 @@ import java.util.*;
 class Solution {
     public int solution(String s) {
         int answer = s.length();
-        int count = 1;
         
-        // 기준 글자 정해서 다음 글자와 비교하는 방식
-        // i는 기준 글자 마지막 인덱스, base는 기준 글자 : substirng(0, i)
-        // j는 비교 글자 첫 인덱스, endIdx는 비교 글자 마지막 인덱스, compare은 비교 글자 : substring(j, endIdx)
-        // count는 같은 글자 횟수
-        for(int i=1; i<=s.length()/2; i++){
-            StringBuilder result = new StringBuilder();
-            String base = s.substring(0, i);
+        for(int step=1; step<=s.length()/2; step++){
+            StringBuilder sb = new StringBuilder();
             
-            for(int j=i; j<=s.length(); j+=i){
-                int endIdx = Math.min(j+i, s.length());
-                String compare = s.substring(j, endIdx);
-                if(base.equals(compare)){
-                    count++;
-                } else{
-                    if(count >= 2){
-                        result.append(count);
+            String prev = s.substring(0, step);
+            int cnt = 1;
+            
+            for(int j=step; j<s.length(); j+=step){
+                int end = Math.min(j+step, s.length());
+                String current = s.substring(j, end);
+                
+                if(prev.equals(current)){
+                    cnt++;
+                } else {
+                    if(cnt > 1){
+                        sb.append(cnt);
                     }
-                    result.append(base);
-                    base = compare;
-                    count = 1;
+                    
+                    sb.append(prev);
+                    prev = current;
+                    cnt = 1;
                 }
             }
             
-            result.append(base);
-            answer = Math.min(answer, result.length());
+            if(cnt > 1){
+                sb.append(cnt);
+            }
+            
+            sb.append(prev);
+            answer = Math.min(answer, sb.length());
+            
         }
         
         return answer;
     }
 }
-
-
