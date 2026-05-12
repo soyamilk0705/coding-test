@@ -1,18 +1,25 @@
 import java.util.*;
 
 class Solution {
+    // 'A' = 65,'Z' = 90 | 'a' = 97,  'z' = 122
     public String solution(String s, int n) {
-        String answer = "";
-        
-        for(char ch: s.toCharArray()){
-            if(ch == ' '){
-                answer += ch;
-            } else if(ch >= 'a' && ch <= 'z'){  // 소문자인 경우
-                answer += (char)('a' + (ch+n-'a') % 26);
-            } else{     // 대문자인 경우
-                answer += (char)('A' + (ch+n-'A') % 26);
+        StringBuilder sb = new StringBuilder();
+    
+        for(char c : s.toCharArray()){
+            if(c == ' '){
+                sb.append(' ');
+                continue;
+            } else if(Character.isUpperCase(c) && c + n > 90){
+                int t = n - ('Z' - c);
+                sb.append((char) ('A' + t - 1));
+            } else if(c + n > 122){
+                int t = n - ('z' - c);
+                sb.append((char) ('a' + t - 1));
+            } else{
+                sb.append((char) (c + n));
             }
         }
-        return answer;
-    } 
+        
+        return sb.toString();
+    }
 }
