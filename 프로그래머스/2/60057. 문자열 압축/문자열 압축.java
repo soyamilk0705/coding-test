@@ -3,26 +3,26 @@ import java.util.*;
 class Solution {
     public int solution(String s) {
         int answer = s.length();
-        
+      
         for(int step=1; step<=s.length()/2; step++){
             StringBuilder sb = new StringBuilder();
-            
-            String prev = s.substring(0, step);
+            String prefix = s.substring(0, step);
             int cnt = 1;
             
             for(int j=step; j<s.length(); j+=step){
-                int end = Math.min(j+step, s.length());
-                String current = s.substring(j, end);
+                int len = Math.min(j+step, s.length());
+                String cur = s.substring(j, len);
                 
-                if(prev.equals(current)){
-                    cnt++;
-                } else {
+                if(cur.equals(prefix)){
+                    cnt++;   
+                } else{
                     if(cnt > 1){
                         sb.append(cnt);
                     }
                     
-                    sb.append(prev);
-                    prev = current;
+                    sb.append(prefix);
+                    
+                    prefix = cur;
                     cnt = 1;
                 }
             }
@@ -30,10 +30,9 @@ class Solution {
             if(cnt > 1){
                 sb.append(cnt);
             }
-            
-            sb.append(prev);
-            answer = Math.min(answer, sb.length());
-            
+        
+            sb.append(prefix);
+            answer = Math.min(sb.length(), answer);
         }
         
         return answer;
