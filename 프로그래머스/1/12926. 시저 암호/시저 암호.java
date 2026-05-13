@@ -1,25 +1,25 @@
 import java.util.*;
 
 class Solution {
-    // 'A' = 65,'Z' = 90 | 'a' = 97,  'z' = 122
     public String solution(String s, int n) {
-        StringBuilder sb = new StringBuilder();
-    
-        for(char c : s.toCharArray()){
-            if(c == ' '){
-                sb.append(' ');
-                continue;
-            } else if(Character.isUpperCase(c) && c + n > 90){
-                int t = n - ('Z' - c);
-                sb.append((char) ('A' + t - 1));
-            } else if(c + n > 122){
-                int t = n - ('z' - c);
-                sb.append((char) ('a' + t - 1));
-            } else{
-                sb.append((char) (c + n));
+        String answer = "";
+        char[] arr = s.toCharArray();
+        System.out.println('a' + 0);
+        
+        for(int i=0; i<arr.length; i++){
+            if(arr[i] == ' '){
+                answer += ' ';
+            } else if(Character.isUpperCase(arr[i])){
+                answer += (char) ((arr[i] - 'A' + n) % 26 + 'A');
+            } else {
+                // 122 - 97 =25
+                answer += (char) ((arr[i] - 'a' + n) % 26 + 'a');
             }
+            
+            
         }
         
-        return sb.toString();
+        
+        return answer;
     }
 }
