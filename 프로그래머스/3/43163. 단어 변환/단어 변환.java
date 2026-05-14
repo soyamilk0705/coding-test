@@ -1,45 +1,48 @@
 import java.util.*;
 
 class Solution {
+    static int answer = Integer.MAX_VALUE;
     static boolean[] visited;
-    static int answer = 0;
     
-    public int solution(String begin, String target, String[] words) {
-        if(!Arrays.asList(words).contains(target)){
-            return 0;
-        }
-        
-        visited = new boolean[words.length];
-        
-        dfs(begin, target, words, 0);
-        return answer;
-    }
-    
-    static void dfs(String begin, String target, String[] words, int cnt){
-        if(begin.equals(target)){
-            answer = cnt;
+    public void dfs(int result, String now, String target, String[] words){
+        if(now.equals(target)){
+            answer = Math.min(result, answer);
             return;
         }
         
-        String[] beginArr = begin.split("");
-        
         for(int i=0; i<words.length; i++){
-            if(visited[i]) continue;
-            
-            int temp = 0;
-            for(int j=0; j<begin.length(); j++){
-                if(begin.charAt(j) == words[i].charAt(j)){
-                    temp++;  
+            if(!visited[i]){
+                int cnt = 0;
+                
+                for(int j=0; j<words[i].length(); j++){
+                    if(words[i].charAt(j) == now.charAt(j)){
+                        cnt++;
+                    }
+                }
+                
+                if(cnt == words[i].length() - 1){
+                    visited[i] = true;
+                    dfs(result+1, words[i], target, words);
+                    visited[i] = false;
                 }
             }
             
-            if(temp == target.length() - 1){
-                visited[i] = true;
-                dfs(words[i], target, words, cnt+1);
-                visited[i] = false;
-            }
         }
         
+    }
+    
+    public int solution(String begin, String target, String[] words) {
+        visited = new boolean[words.length];
         
+        
+        dfs(0, begin, target, words);
+       
+       
+        
+        if(answer == Integer.MAX_VALUE){
+            return 0;
+        }
+        
+        return answer;
     }
 }
