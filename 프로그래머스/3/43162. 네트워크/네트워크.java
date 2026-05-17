@@ -1,13 +1,16 @@
 class Solution {
     static boolean[] visited;
     
-    public void dfs(int now, int n, int[][] computers){
-        visited[now] = true;
-        
+    public void dfs(int idx, int n, int[][] computers){
         for(int i=0; i<n; i++){
-            if(i != now && !visited[i] && computers[now][i] == 1){
-                dfs(i, n, computers);
+            if(i == idx){
+                continue;
             }
+            
+            if(!visited[i] && computers[idx][i] == 1){
+                visited[i] = true;
+                dfs(i, n, computers);
+            } 
         }
     }
     
@@ -17,9 +20,10 @@ class Solution {
         
         for(int i=0; i<n; i++){
             if(!visited[i]){
+                visited[i] = true;
                 dfs(i, n, computers);
                 answer++;
-            }
+            }    
         }
         
         return answer;
