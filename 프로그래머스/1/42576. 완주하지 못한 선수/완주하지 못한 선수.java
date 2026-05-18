@@ -2,25 +2,25 @@ import java.util.*;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
-        Map<String, Integer> map = new HashMap<>();
         String answer = "";
-        
-        for(String p : participant){
-            map.put(p, map.getOrDefault(p, 0) + 1); // 동명이인 체크
+        Map<String, Integer> map = new HashMap<>();
+        for(String parti : participant){
+           map.put(parti, map.getOrDefault(parti, 0) + 1);
         }
         
-        for(String c : completion){
-            map.put(c, map.get(c) - 1);
+        for(int i=0; i<completion.length; i++){
+            if(map.containsKey(completion[i])){
+                map.put(completion[i], map.get(completion[i]) - 1);
+            }
         }
         
         for(String key : map.keySet()){
-            if(map.get(key) != 0){
+            if(map.get(key) == 1){
                 answer = key;
                 break;
             }
         }
         
         return answer;
-        
     }
 }
