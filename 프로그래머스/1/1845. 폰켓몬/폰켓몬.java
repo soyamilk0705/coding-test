@@ -2,14 +2,14 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> set = new HashSet<>();
         
         for(int num : nums){
-            map.put(num, map.getOrDefault(num, 0) + 1);
+            set.add(num);
         }
         
-        if(map.size() <= nums.length / 2){
-            return map.size();
+        if(set.size() <= nums.length / 2){
+            return set.size();
         }
         
         return nums.length / 2;
