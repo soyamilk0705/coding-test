@@ -13,6 +13,7 @@ class Solution {
             answer *= (map.get(key) + 1);
         }
         
+        
         return answer - 1;
     }
 }
