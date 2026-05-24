@@ -3,23 +3,19 @@ import java.util.*;
 class Solution {
     public boolean solution(String[] phone_book) {
         boolean answer = true;
-        Set<String> set = new HashSet<>();
+        Set<String> phones = new HashSet<>(List.of(phone_book));
         
-        for(String phone : phone_book){
-            set.add(phone);
-        }
-        
-        
-        for(String phone : phone_book){
+        for(String phone : phones){
             for(int i=1; i<phone.length(); i++){
                 String prefix = phone.substring(0, i);
-
-                if(set.contains(prefix)){
+                
+                if(phones.contains(prefix)){
                     return false;
                 }
-                
             }
         }
+        
+        
         
         return answer;
     }
