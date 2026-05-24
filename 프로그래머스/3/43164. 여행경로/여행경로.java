@@ -2,11 +2,11 @@ import java.util.*;
 
 class Solution {
     static boolean[] visited;
-    static List<String> airs = new ArrayList<>();
     static boolean finish = false;
+    List<String> answer = new ArrayList<>();
     
     public void dfs(int cnt, String start, String[][] tickets){
-        if(cnt == tickets.length){
+        if(cnt == visited.length){
             finish = true;
             return;
         }
@@ -14,8 +14,7 @@ class Solution {
         for(int i=0; i<tickets.length; i++){
             if(!visited[i] && tickets[i][0].equals(start)){
                 visited[i] = true;
-                airs.add(tickets[i][1]);
-                
+                answer.add(tickets[i][1]);
                 dfs(cnt+1, tickets[i][1], tickets);
                 
                 if(finish){
@@ -23,24 +22,25 @@ class Solution {
                 }
                 
                 visited[i] = false;
-                airs.remove(airs.size() - 1);
+                answer.remove(answer.size() - 1);
+                dfs(cnt+1, tickets[i][1], tickets);
             }
         }
     }
     
     public String[] solution(String[][] tickets) {
         visited = new boolean[tickets.length];
+        answer.add("ICN");
         
-        Arrays.sort(tickets, (o1, o2) -> {
-            if(o1[0].equals(o2[0])){
-                return o1[1].compareTo(o2[1]);
+        Arrays.sort(tickets, (a, b) -> {
+            if(a[0].equals(b[0])){
+                return a[1].compareTo(b[1]);
             }
-            return o1[0].compareTo(o2[0]);
+            return a[0].compareTo(b[0]);
         });
         
-        airs.add("ICN");
         dfs(0, "ICN", tickets);
         
-        return airs.toArray(new String[airs.size()]);
+        return answer.toArray(new String[answer.size()]);
     }
 }
