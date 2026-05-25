@@ -6,16 +6,12 @@ class Solution {
         
         for(int i=0; i<commands.length; i++){
             int s = commands[i][0] - 1;
-            int e = commands[i][1] - 1;
+            int e = commands[i][1];
             int k = commands[i][2] - 1;
             
-            List<Integer> tmp = new ArrayList<>();
-            for(int j=s; j<=e; j++){
-                tmp.add(array[j]);
-            }
-            
-            Collections.sort(tmp);
-            answer[i] = tmp.get(k);
+            int[] tmp = Arrays.copyOfRange(array, s, e);
+            Arrays.sort(tmp);
+            answer[i] = tmp[k];
         }
         
         
