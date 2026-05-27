@@ -3,23 +3,23 @@ import java.util.*;
 class Solution {
     public int solution(String name) {
         int answer = 0;
-        int length = name.length();
+        int move = name.length();
         
-        int move = length - 1;
-        
-        for(int i=0; i<length; i++){
+        for(int i=0; i<name.length(); i++){
             answer += Math.min(
-            name.charAt(i) - 'A',
-            'Z' - name.charAt(i) + 1);
+                'Z' - name.charAt(i) + 1,
+                name.charAt(i) - 'A'
+            );
             
-            int next = i+1;
+            int aIdx = i+1;
             
-            while(next < length && name.charAt(next) == 'A'){
-                next++;
+            while(aIdx < name.length() && name.charAt(aIdx) == 'A'){
+                aIdx++;
             }
             
-            move = Math.min(move, i * 2 + length - next);
-            move = Math.min(move, (length - next) * 2 + i);
+            move = Math.min(move, i * 2 + name.length() - aIdx);
+            move = Math.min(move, (name.length() - aIdx) * 2 + i);
+            
         }
         
         return answer + move;
