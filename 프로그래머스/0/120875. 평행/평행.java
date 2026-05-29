@@ -1,32 +1,19 @@
-import java.util.*;
-
 class Solution {
+    // (x2 - x1)(y4 - y3) = (y2 - y1)(x4 - x3)
     public int solution(int[][] dots) {
-        if(parallel(dots[0], dots[1], dots[2], dots[3])){
+        if(isPallel(dots[0], dots[1], dots[2], dots[3])){
             return 1;
         }
-        
-        if(parallel(dots[0], dots[2], dots[1], dots[3])){
+        if(isPallel(dots[0], dots[2], dots[1], dots[3])){
             return 1;
         }
-        
-        if(parallel(dots[0], dots[3], dots[1], dots[2])){
+        if(isPallel(dots[0], dots[3], dots[1], dots[2])){
             return 1;
         }
-        
         return 0;
     }
     
-    boolean parallel(int[] p1, int[] p2, int[] p3, int[] p4){
-        int x1 = p1[0];
-        int y1 = p1[1];
-        int x2 = p2[0];
-        int y2 = p2[1];
-        int x3 = p3[0];
-        int y3 = p3[1];
-        int x4 = p4[0];
-        int y4 = p4[1];
-        
-        return (y2 - y1) * (x4 - x3) == (y4 - y3) * (x2 - x1);
+    public boolean isPallel(int[] dot1, int[] dot2, int[] dot3, int[] dot4){
+        return (dot2[0] - dot1[0]) * (dot4[1] - dot3[1]) == (dot2[1] - dot1[1]) * (dot4[0] - dot3[0]);
     }
 }
