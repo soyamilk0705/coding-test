@@ -6,14 +6,8 @@ class Solution {
         Queue<Integer> queue = new LinkedList<>();
         
         for(int i=0; i<speeds.length; i++){
-            int day = 100 - progresses[i];
-            
-            if(day % speeds[i] != 0){
-                queue.add(day / speeds[i] + 1);
-            } else{
-                queue.add(day / speeds[i]);
-            }
-            
+            int day = ((100 - progresses[i]) + speeds[i] - 1) / speeds[i];
+            queue.add(day);
         }
         
        
