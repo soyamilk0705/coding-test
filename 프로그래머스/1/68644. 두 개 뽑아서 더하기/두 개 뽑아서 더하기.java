@@ -13,9 +13,9 @@ class Solution {
             }
         }
         
-        Collections.sort(answer);
         
         return answer.stream()
+            .sorted()
             .mapToInt(Integer::intValue)
             .toArray();
     }
