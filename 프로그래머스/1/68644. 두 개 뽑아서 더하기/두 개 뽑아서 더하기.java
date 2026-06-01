@@ -1,30 +1,22 @@
 import java.util.*;
 
 class Solution {
-    private static Set<Integer> result = new HashSet<>();
-    
     public int[] solution(int[] numbers) {
-        int[] answer;
+        List<Integer> answer = new ArrayList<>();
         
-        
-        for(int i=0; i<numbers.length; i++){
+        for(int i=0; i<numbers.length-1; i++){
             for(int j=i+1; j<numbers.length; j++){
-                result.add(numbers[i] + numbers[j]);
+                int sum = numbers[i] + numbers[j];
+                if(!answer.contains(sum)){
+                    answer.add(sum);
+                }
             }
         }
         
-        answer = new int[result.size()];
-        int i=0;
+        Collections.sort(answer);
         
-        Iterator iter = result.iterator();
-        while(iter.hasNext()){
-            answer[i] = (int)iter.next();
-            i++;
-        }
-        
-        Arrays.sort(answer);
-        
-        return answer;
+        return answer.stream()
+            .mapToInt(Integer::intValue)
+            .toArray();
     }
-    
 }
