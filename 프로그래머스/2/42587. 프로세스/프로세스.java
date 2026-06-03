@@ -1,47 +1,41 @@
 import java.util.*;
 
 class Solution {
-    static class Process {
-        int order;
+    class Process {
         int priority;
+        int location;
         
-        public Process(int order, int priority){
-            this.order = order;
+        public Process(int priority, int location){
             this.priority = priority;
+            this.location = location;
         }
     }
     
     public int solution(int[] priorities, int location) {
         int answer = 0;
+        
         Queue<Process> queue = new LinkedList<>();
-        List<Integer> sortPri = new ArrayList<>();
-        
-        int priIdx = 0;
-        
-        
         for(int i=0; i<priorities.length; i++){
-            Process p = new Process(i, priorities[i]);
-            queue.add(p);
-            sortPri.add(priorities[i]);
+            queue.offer(new Process(priorities[i], i));
         }
         
-        Collections.sort(sortPri, Comparator.reverseOrder());
+        Arrays.sort(priorities);
+        int idx = priorities.length - 1;
         
         while(!queue.isEmpty()){
-            Process p = queue.poll();
+            Process process = queue.poll();
             
-            if(p.priority == sortPri.get(priIdx)) {
-                if(p.order == location){
-                    return answer+1;
-                } else {
-                    answer++;
-                    priIdx++;                
-                }
+            if(process.priority == priorities[idx]){
+                answer++;
+                idx--;
+                if(process.location == location){
+                    break;
+                } 
             } else{
-                queue.offer(p);
+                queue.offer(process);
             }
+            
         }
-        
         
         
         return answer;
