@@ -9,12 +9,13 @@ class Solution {
                 stack.push(c);
             } else{
                 if(stack.isEmpty()){
-                    return false;  
+                    return false;
                 }
-                stack.pop(); 
+                stack.pop();
             }
         }
         
+
         return stack.isEmpty();
     }
 }
