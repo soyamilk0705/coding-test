@@ -3,28 +3,31 @@ import java.util.*;
 class Solution {
     public int[] solution(int[] prices) {
         int[] answer = new int[prices.length];
+        Queue<Integer> queue = new LinkedList<>();
         
-        Queue<Integer> queue = new LinkedList<Integer>();
-        
-        for(int i : prices){
-            queue.offer(i);
+        for(int i=0; i<prices.length; i++){
+            queue.offer(prices[i]);
         }
         
-        int j = 0;
+        int idx = 0;
         
         while(!queue.isEmpty()){
-            int value = queue.poll();
-            int start = prices.length - queue.size();
+            int now = queue.poll();
+            int cnt = 0;
             
-            for(int i=start; i<prices.length; i++){
-                answer[j]++;
-                
-                if(value > prices[i]){
-                    break;
-                } 
+            for(int i=idx+1; i<prices.length; i++){
+                if(!queue.isEmpty()){
+                    int next = prices[i];
+                    cnt++;
+                    if(now > next){
+                        break;
+                    }
+                }
             }
             
-            j++;
+            
+            answer[idx++] = cnt; 
+            
         }
         
         
