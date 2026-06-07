@@ -7,16 +7,16 @@ class Solution {
         
         for(char c : s.toCharArray()){
             if(c == ')'){
-                if(stack.isEmpty()){
+                if(stack.isEmpty()) {
                     return false;
                 }
                 stack.pop();
-            } else{
+            } else {
                 stack.push(c);
             }
         }
         
-        
+
         return stack.isEmpty() ? true : false;
     }
 }
