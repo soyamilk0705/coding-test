@@ -1,16 +1,20 @@
 import java.util.*;
 
 class Solution {
-    static Set<Integer> set;
-    static boolean[] visited = new boolean[7];
+    static Set<Integer> set = new HashSet<>();
+    static boolean[] visited;
+    static char[] nums;
     
     public int solution(String numbers) {
-        int answer = 0;
-        set = new HashSet<>();
-        dfs(numbers, "", 0);
+        nums = numbers.toCharArray();
+        visited = new boolean[nums.length];
         
-        for(Integer num: set){
-            if(isPrime(num)){
+        dfs("");
+        
+        int answer = 0;
+        
+        for(int num : set){
+            if (isPrime(num)){
                 answer++;
             }
         }
@@ -18,28 +22,27 @@ class Solution {
         return answer;
     }
     
-    public static void dfs(String numbers, String s, int depth){
-        if(depth > numbers.length()){
-            return;
+    static void dfs(String current){
+        if(!current.isEmpty()){
+            set.add(Integer.parseInt(current));
         }
         
-        for(int i=0; i<numbers.length(); i++){
-            if(!visited[i]){
-                visited[i] = true;
-                set.add(Integer.parseInt(s + numbers.charAt(i)));
-                dfs(numbers, s+numbers.charAt(i), depth+1);
-                visited[i] = false; // 백트래킹
-            }
+        for(int i=0; i<nums.length; i++){
+            if(visited[i]) continue;
+            
+            visited[i] = true;
+            dfs(current + nums[i]);
+            visited[i] = false;
         }
     }
     
-    public static boolean isPrime(int n){
-        if (n < 2){
+    static boolean isPrime(int num){
+        if (num < 2) {
             return false;
         }
         
-        for(int i=2; i<= (int) Math.sqrt(n); i++){
-            if (n % i == 0){
+        for(int i=2; i*i <= num; i++){
+            if(num % i == 0){
                 return false;
             }
         }
