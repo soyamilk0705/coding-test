@@ -2,34 +2,44 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] answers) {
-        int[] person1 = {1, 2, 3, 4, 5};
-        int[] person2 = {2, 1, 2, 3, 2, 4, 2, 5};
-        int[] person3 = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
-        
-        int[] grades = new int[3];
-    
-        for(int i=0; i<answers.length; i++){
-            if(answers[i] == person1[i%5]){
-                grades[0]++;
-            }
-            if(answers[i] == person2[i%8]){
-                grades[1]++;
-            }
-            if(answers[i] == person3[i%10]){
-                grades[2]++;
-            }
-        }
-        
-        int max = Arrays.stream(grades).max().orElse(0);
         List<Integer> answer = new ArrayList<>();
+        int[] one = {1, 2, 3, 4, 5};
+        int[] two = {2, 1, 2, 3, 2, 4, 2, 5};
+        int[] three = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
         
-        for(int i=0; i<grades.length; i++){
-            if(grades[i] == max){
-                answer.add(i+1);
+        
+        int oneCnt = 0;
+        int twoCnt = 0;
+        int threeCnt = 0;
+        
+        
+        for(int i=0; i<answers.length; i++){
+            if(one[i % 5] == answers[i]){
+                oneCnt++;
+            }
+            if(two[i % 8] == answers[i]){
+                twoCnt++;
+            }
+            if(three[i % 10] == answers[i]){
+                threeCnt++;
             }
         }
+    
+        int max = Math.max(oneCnt, Math.max(twoCnt, threeCnt));
         
-        return answer.stream().mapToInt(Integer::intValue).toArray();
+        if(oneCnt == max){
+            answer.add(1);
+        }
+        if(twoCnt == max){
+            answer.add(2);
+        }
+        if(threeCnt == max){
+            answer.add(3);
+        }
         
+        
+        return answer.stream()
+            .mapToInt(Integer::intValue)
+            .toArray();
     }
 }
