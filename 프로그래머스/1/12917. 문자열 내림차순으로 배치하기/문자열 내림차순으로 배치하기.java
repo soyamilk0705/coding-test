@@ -2,15 +2,15 @@ import java.util.*;
 
 class Solution {
     public String solution(String s) {
-        StringBuilder sb = new StringBuilder();        
-        String[] strArr = s.split("");
+        String answer = "";
+        char[] arr = s.toCharArray();
         
-        Arrays.sort(strArr);
+        Arrays.sort(arr);
         
-        for(String st: strArr){
-            sb.append(st);
+        for(int i=arr.length-1; i>=0; i--){
+            answer += arr[i];
         }
         
-        return sb.reverse().toString();
+        return answer;
     }
 }
