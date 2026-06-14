@@ -4,17 +4,15 @@ class Solution {
     static int answer = 0;
     
     public void dfs(int k, int level, int[][] dungeons){
-        if(level == n){
-            return;
-        }
+        answer = Math.max(answer, level);
         
         for(int i=0; i<n; i++){
             if(!visited[i] && dungeons[i][0] <= k){
                 visited[i] = true;
                 dfs(k-dungeons[i][1], level+1, dungeons);
                 visited[i] = false;
-                answer = Math.max(answer, level+1);
             }
+            
         }
         
         
