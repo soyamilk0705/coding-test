@@ -2,12 +2,11 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] sequence, int k) {
+        int[] answer = new int[2];
+        
         int left = 0;
         int sum = 0;
-        
-        int start = 0;
-        int end = sequence.length - 1;
-        int minLen = Integer.MAX_VALUE;
+        int len = Integer.MAX_VALUE;
         
         for(int right=0; right<sequence.length; right++){
             sum += sequence[right];
@@ -17,14 +16,14 @@ class Solution {
             }
             
             if(sum == k){
-                if(right - left < minLen){
-                    minLen = right - left;
-                    start = left;
-                    end = right;
+                if(len > right - left){
+                    len = right - left;
+                    answer[0] = left;
+                    answer[1] = right;
                 }
             }
         }
         
-        return new int[]{start, end};
+        return answer;
     }
 }
