@@ -15,12 +15,10 @@ class Solution {
                 sum -= sequence[left++];
             }
             
-            if(sum == k){
-                if(len > right - left){
-                    len = right - left;
-                    answer[0] = left;
-                    answer[1] = right;
-                }
+            if(sum == k && len > (right-left)){
+                len = right - left;
+                answer[0] = left;
+                answer[1] = right;
             }
         }
         
