@@ -1,49 +1,54 @@
 import java.util.*;
 
 class Solution {
-    static String str;
-    static HashMap<String, Integer> menu;
-    static boolean isVisited[];
-    static int max[];
+    static Map<String, Integer> map;
     
     public String[] solution(String[] orders, int[] course) {
-        List<String> answer = new ArrayList<String>();
+        List<String> answer = new ArrayList<>();
         
-        max = new int[course.length];
-        menu = new HashMap<String, Integer>();
-        
-        for(int i=0; i<orders.length; i++){
-            char a[] = orders[i].toCharArray();
-            Arrays.sort(a);
-            str = String.copyValueOf(a);
+        for(int len : course){
+            map = new HashMap<>();
             
-            for(int j=0; j<course.length; j++){
-                isVisited = new boolean[str.length()];
-                comb(0, 0, "", j, course[j]);
+            for(String order : orders){
+                char[] arr = order.toCharArray();
+                Arrays.sort(arr);
+                
+                if(arr.length >= len){
+                    dfs(arr, "", 0, len);
+                }
+                
             }
-        }
-        
-        for (String s : menu.keySet()){
-            for(int i=0; i<course.length; i++){
-                if(course[i] == s.length() && max[i] != 1 && menu.get(s) == max[i]){
-                    answer.add(s);
+            
+            int max = 0;
+            for(int count : map.values()){
+                max = Math.max(max, count);
+            }
+            
+            if(max < 2){
+                continue;
+            }
+            
+            for(String key : map.keySet()){
+                if(map.get(key) == max){
+                    answer.add(key);
                 }
             }
+            
         }
         
-        return answer.stream().sorted().map(s->s).toArray(String[]::new);
+        Collections.sort(answer);
+        
+        return answer.toArray(new String[0]);
     }
     
-    private static void comb(int cur, int cnt, String s, int j, int N){
-        if(cnt == N){
-            menu.put(s, menu.containsKey(s) ? menu.get(s) + 1 : 1);
-            max[j] = Math.max(max[j], menu.get(s));
+    public void dfs(char[] order, String cur, int idx, int target){
+        if(cur.length() == target){
+            map.put(cur, map.getOrDefault(cur, 0) + 1);
             return;
         }
         
-        for(int i=cur; i<str.length(); i++){
-            isVisited[i] = true;
-            comb(i+1, cnt+1, s+str.charAt(i), j, N);
+        for(int i=idx; i<order.length; i++){
+            dfs(order, cur + order[i], i+1, target);
         }
     }
 }
