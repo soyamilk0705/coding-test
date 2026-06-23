@@ -1,31 +1,29 @@
+
 import java.util.*;
 
 class Solution {
-    private List<String> list = new ArrayList<>();
-    private String[] words = {"A", "E", "I", "O", "U"};
+    static List<String> dictionary = new ArrayList<>();
+    static char[] words = {'A', 'E', 'I', 'O', 'U'};
     
     public int solution(String word) {
-        makeDictionary("", 0);
-        return list.indexOf(word);
+        int answer = 0;
+        
+        dfs("");
+        
+        return dictionary.indexOf(word) + 1;
     }
     
-    
-    public void makeDictionary(String result, int len){
-        list.add(result);
-        
-        if (len == 5) return;
-        
-        for (int i=0; i<5; i++){
-            makeDictionary(result + words[i] , len + 1);
-            // makeDicionary("A", 1) - makeDictionary("AA", 2) - makeDictionary("AAA", 3)
-            //                                                 - makeDictionary("AAE", 3)
-            //                       - makeDictionary("AE", 2) - makeDictionary("AEA", 3)
-            // makeDictionary("E", 1)
-            // makeDictionary("I", 1)
-            // makeDictionary("O", 1)
-            // makeDictionary("U", 1)
-            
+    public void dfs(String str){
+        if(str.length() > 5){
+            return;    
         }
         
+        if(!str.isEmpty()){
+            dictionary.add(str);
+        }
+        
+        for(int i=0; i<5; i++){
+            dfs(str + words[i]);
+        }
     }
 }
