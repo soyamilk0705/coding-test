@@ -8,9 +8,7 @@ class Solution {
             }
             return a.charAt(n) - b.charAt(n);
         });
-                
         
-    
         return strings;
     }
 }
