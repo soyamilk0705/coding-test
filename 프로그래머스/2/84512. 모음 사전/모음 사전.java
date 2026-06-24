@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 class Solution {
@@ -8,22 +7,22 @@ class Solution {
     public int solution(String word) {
         int answer = 0;
         
-        dfs("");
+        dfs(0, "");
         
         return dictionary.indexOf(word) + 1;
     }
     
-    public void dfs(String str){
-        if(str.length() > 5){
-            return;    
+    public void dfs(int len, String now){
+        if(len > 5){
+            return;
         }
         
-        if(!str.isEmpty()){
-            dictionary.add(str);
+        if(!now.isEmpty()){
+            dictionary.add(now);
         }
         
         for(int i=0; i<5; i++){
-            dfs(str + words[i]);
+            dfs(len+1, now + words[i]);
         }
     }
 }
