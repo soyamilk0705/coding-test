@@ -9,29 +9,18 @@ class Solution {
             pq.offer(scov);
         }
         
-        
-        while(!pq.isEmpty()){
+        while(pq.size() >= 2 && pq.peek() < K){
             int a = pq.poll();
-            
-            if(a >= K){
-                break;
-            }
-            
-            if(!pq.isEmpty()){
-                int b = pq.poll();
-                
-                int sum = a + (b * 2);
-                pq.offer(sum);
-                answer++;
-                
-            } else{
-                return -1;
-            }
+            int b = pq.poll();
+            int sum = a + (b * 2);
+            pq.offer(sum);
+            answer++;
         }
         
-        
-        
-        
-        return answer;
+        if(pq.peek() >= K){
+            return answer;
+        }
+    
+        return -1;
     }
 }
