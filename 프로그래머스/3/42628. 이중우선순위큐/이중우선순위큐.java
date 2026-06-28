@@ -2,28 +2,27 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String[] operations) {
-        int[] answer = new int[2];
-        PriorityQueue<Integer> ascPQ = new PriorityQueue<>();
-        PriorityQueue<Integer> descPQ = new PriorityQueue<>(Collections.reverseOrder());
-        
+        PriorityQueue<Integer> minQue = new PriorityQueue<>();
+        PriorityQueue<Integer> maxQue = new PriorityQueue<>(Collections.reverseOrder());
         
         for(String oper : operations){
             if(oper.startsWith("I")){
-                int num = Integer.parseInt(oper.split(" ")[1]);
-                ascPQ.offer(num);
-                descPQ.offer(num);
-            } else if(!descPQ.isEmpty() && oper.equals("D 1")){
-                ascPQ.remove(descPQ.poll());
-            } else if(!ascPQ.isEmpty() && oper.equals("D -1")) {
-                descPQ.remove(ascPQ.poll());
+                minQue.offer(Integer.parseInt(oper.substring(2)));
+                maxQue.offer(Integer.parseInt(oper.substring(2)));
+            } else if(!minQue.isEmpty() && oper.equals("D -1")){
+                int n = minQue.poll();
+                maxQue.remove(n);
+            } else if(!maxQue.isEmpty() && oper.equals("D 1")){
+                int n = maxQue.poll();
+                minQue.remove(n);
             }
         }
         
-        if(ascPQ.isEmpty() && descPQ.isEmpty()){
-           return new int[] {0, 0}; 
+        if(minQue.isEmpty() && maxQue.isEmpty()){
+            return new int[]{0, 0};
         }
         
         
-        return new int[]{descPQ.poll(), ascPQ.poll()};
+        return new int[] {maxQue.poll(), minQue.poll()};
     }
 }
