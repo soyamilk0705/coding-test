@@ -2,26 +2,25 @@ import java.util.*;
 
 class Solution {
     static Map<String, Integer> map;
+    static List<String> answer = new ArrayList<>();
     
     public String[] solution(String[] orders, int[] course) {
-        List<String> answer = new ArrayList<>();
-        
         for(int len : course){
             map = new HashMap<>();
             
             for(String order : orders){
-                char[] arr = order.toCharArray();
-                Arrays.sort(arr);
-                
-                if(arr.length >= len){
-                    dfs(arr, "", 0, len);
+                if(order.length() < len){
+                    continue;
                 }
                 
+                char[] arr = order.toCharArray();
+                Arrays.sort(arr);
+                dfs("", len, 0, arr);
             }
             
             int max = 0;
-            for(int count : map.values()){
-                max = Math.max(max, count);
+            for(String key : map.keySet()){
+                max = Math.max(max, map.get(key));
             }
             
             if(max < 2){
@@ -41,14 +40,14 @@ class Solution {
         return answer.toArray(new String[0]);
     }
     
-    public void dfs(char[] order, String cur, int idx, int target){
-        if(cur.length() == target){
-            map.put(cur, map.getOrDefault(cur, 0) + 1);
+    public void dfs(String now, int len, int idx, char[] arr){
+        if(now.length() == len){
+            map.put(now, map.getOrDefault(now, 0) + 1);
             return;
         }
         
-        for(int i=idx; i<order.length; i++){
-            dfs(order, cur + order[i], i+1, target);
+        for(int i=idx; i<arr.length; i++){
+            dfs(now + arr[i], len, i+1, arr);
         }
     }
 }
