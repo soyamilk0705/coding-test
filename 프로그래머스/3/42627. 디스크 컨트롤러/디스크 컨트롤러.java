@@ -4,13 +4,13 @@ class Solution {
     public int solution(int[][] jobs) {
         Arrays.sort(jobs, (a, b) -> a[0] - b[0]);
         
+        int time = 0;
+        int sum = 0;
+        int idx = 0;
+        
         PriorityQueue<int[]> pq = new PriorityQueue<>(
             (a, b) -> a[1] - b[1]
         );
-        
-        int time = 0;
-        int idx = 0;
-        int total = 0;
         
         while(idx < jobs.length || !pq.isEmpty()){
             while(idx < jobs.length && jobs[idx][0] <= time){
@@ -20,14 +20,13 @@ class Solution {
             
             if(!pq.isEmpty()){
                 int[] job = pq.poll();
-                
                 time += job[1];
-                total += time - job[0];
-            } else{
+                sum += (time - job[0]);
+            } else {
                 time = jobs[idx][0];
             }
         }
         
-        return total / jobs.length;
+        return sum / jobs.length;
     }
 }
