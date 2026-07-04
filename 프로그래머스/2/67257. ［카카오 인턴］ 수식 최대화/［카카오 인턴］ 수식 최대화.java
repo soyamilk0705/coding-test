@@ -1,32 +1,32 @@
 import java.util.*;
 
 class Solution {
-    char[] ex = {'*', '-', '+'};
-    char[] priority = new char[3];
+    char[] oper = {'*', '+', '-'};
     boolean[] visited = new boolean[3];
+    List<Long> numbers = new ArrayList<>();
+    List<Character> operations = new ArrayList<>();
+    
+    char[] priority = new char[3];
+    
     long answer = 0;
     
-    List<Long> numbers = new ArrayList<>();
-    List<Character> operators = new ArrayList<>();
     
     public long solution(String expression) {
-        char[] arr = expression.toCharArray();
-        
-        
         String number = "";
-        
         for(char c : expression.toCharArray()){
             if(Character.isDigit(c)){
                 number += c;
-            } else {
+            } else{
                 numbers.add(Long.parseLong(number));
-                operators.add(c);
+                operations.add(c);
                 number = "";
             }
         }
+        
         numbers.add(Long.parseLong(number));
         
         dfs(0);
+        
         return answer;
     }
     
@@ -39,7 +39,7 @@ class Solution {
         for(int i=0; i<3; i++){
             if(!visited[i]){
                 visited[i] = true;
-                priority[depth] = ex[i];
+                priority[depth] = oper[i];
                 dfs(depth+1);
                 visited[i] = false;
             }
@@ -47,36 +47,33 @@ class Solution {
     }
     
     public void calc(){
-        List<Long> nums = new ArrayList<>(numbers);
-        List<Character> ops = new ArrayList<>(operators);
+        List<Long> num = new ArrayList<>(numbers);
+        List<Character> oper = new ArrayList<>(operations);
         
-        for(char op : priority){
-            for(int i=0; i<ops.size(); i++){
-                if(ops.get(i) != op){
+        for(char pri : priority){
+            for(int i=0; i<oper.size(); i++){
+                if(oper.get(i) != pri){
                     continue;
                 }
                 
-                long a = nums.get(i);
-                long b = nums.get(i+1);
+                long n = 0;
                 
-                long result = 0;
-                
-                if(op == '+'){
-                    result = a + b;
-                } else if(op == '-'){
-                    result = a - b;
-                } else {
-                    result = a * b;
+                if(oper.get(i) == '*'){
+                    n = num.get(i) * num.get(i+1);
+                } else if(oper.get(i) == '+'){
+                    n = num.get(i) + num.get(i+1);
+                } else{
+                    n = num.get(i) - num.get(i+1);
                 }
                 
-                nums.set(i, result);
-                nums.remove(i+1);
-                ops.remove(i);
+                num.set(i, n);
+                num.remove(i+1);
+                oper.remove(i);
                 
                 i--;
             }
         }
         
-        answer = Math.max(answer, Math.abs(nums.get(0)));
+        answer = Math.max(Math.abs(num.get(0)), answer);
     }
 }
