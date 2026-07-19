@@ -2,15 +2,13 @@ import java.util.*;
 
 class Solution {
     public int[] solution(long n) {
-        String str = String.valueOf(n);
-        int len = str.length();
-        
+        int len = Long.toString(n).length();
         int[] answer = new int[len];
         
         for(int i=0; i<len; i++){
-            answer[i] = Integer.parseInt(str.substring(len-i-1, len-i));
+            answer[i] = (int) (n % 10);
+            n /= 10;
         }
-        
         
         return answer;
     }
