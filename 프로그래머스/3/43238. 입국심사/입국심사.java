@@ -5,25 +5,25 @@ class Solution {
         Arrays.sort(times);
         
         long left = 1;
-        long right = (long) times[times.length - 1] * n;
+        long right = (long) n * times[times.length-1];
         long answer = right;
         
-        while(left <= right){
+        while (left <= right){
             long mid = (left + right) / 2;
             
             long people = 0;
-            for(int time : times){
-                people += mid / time;
+            for(int i=0; i<times.length; i++){
+                people += mid / times[i];
                 
                 if(people >= n){
                     break;
                 }
             }
             
-            if(people>=n){
+            if(people >= n){
                 answer = mid;
                 right = mid - 1;
-            } else {
+            } else { 
                 left = mid + 1;
             }
         }
