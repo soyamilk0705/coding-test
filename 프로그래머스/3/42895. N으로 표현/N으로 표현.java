@@ -6,24 +6,25 @@ class Solution {
         
         dp.add(new HashSet<>());
         
-        for(int i=1; i<=9; i++){
+        for(int i=1; i<=8; i++){
             dp.add(new HashSet<>());
             
-            int num = 0;
+            int cnt = 0;
             for(int j=0; j<i; j++){
-                num = num * 10 + N;
+                cnt = cnt * 10 + N;
             }
-            dp.get(i).add(num);
+            dp.get(i).add(cnt);
+            
             
             for(int j=1; j<i; j++){
-                for(int a : dp.get(j)){
-                    for(int b : dp.get(i-j)){
-                        dp.get(i).add(a*b);
-                        dp.get(i).add(a+b);
-                        dp.get(i).add(a-b);
+                for(int n1 : dp.get(j)){
+                    for(int n2 : dp.get(i-j)){
+                        dp.get(i).add(n1 + n2);
+                        dp.get(i).add(n1 - n2);
+                        dp.get(i).add(n1 * n2);
                         
-                        if(b != 0){
-                            dp.get(i).add(a/b);
+                        if(n2 != 0){
+                            dp.get(i).add(n1 / n2);
                         }
                     }
                 }
@@ -32,6 +33,8 @@ class Solution {
             if(dp.get(i).contains(number)){
                 return i;
             }
+            
+            
         }
         
         
