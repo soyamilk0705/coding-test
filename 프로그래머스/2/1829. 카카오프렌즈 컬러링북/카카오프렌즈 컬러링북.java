@@ -8,17 +8,25 @@ class Solution {
     public int[] solution(int m, int n, int[][] picture) {
         int numberOfArea = 0;
         int maxSizeOfOneArea = 0;
+
         int[] answer = new int[2];
         visited = new boolean[m][n];
         
+        Queue<int[]> queue = new LinkedList<>();
+       
+        
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
+                int size = 0;
+                
                 if(!visited[i][j] && picture[i][j] != 0){
-                    visited[i][j] = true;
                     numberOfArea++;
-                    int size = dfs(m, n, picture, i, j);
-                    maxSizeOfOneArea = Math.max(maxSizeOfOneArea, size);
+                    queue.add(new int[]{i, j});
+                    visited[i][j] = true;
+                    size += bfs(queue, picture, m, n);
                 }
+                
+                maxSizeOfOneArea = Math.max(maxSizeOfOneArea, size);
             }
         }
         
@@ -27,19 +35,26 @@ class Solution {
         return answer;
     }
     
-    public int dfs(int m, int n, int[][] picture, int x, int y){
+    public int bfs(Queue<int[]> queue, int[][] picture, int m, int n){
         int cnt = 1;
         
-        for(int i=0; i<4; i++){
-            int nx = dx[i] + x;
-            int ny = dy[i] + y;
+        while(!queue.isEmpty()){
+            int[] now = queue.poll();
+            int x = now[0];
+            int y = now[1];
             
-            if(nx >= 0 && ny >= 0 && nx < m && ny < n && !visited[nx][ny] && picture[x][y] == picture[nx][ny]){
-                visited[nx][ny] = true;
-                cnt += dfs(m, n, picture, nx, ny);
+            for(int i=0; i<4; i++){
+                int nx = dx[i] + x;
+                int ny = dy[i] + y;
                 
+                if(nx >= 0 && ny >= 0 && nx < m && ny < n && !visited[nx][ny] && picture[nx][ny] == picture[x][y]){
+                    visited[nx][ny] = true;
+                    queue.offer(new int[]{nx, ny});
+                    cnt++;
+                }
             }
         }
+        
         return cnt;
     }
 }
