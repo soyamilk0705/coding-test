@@ -2,7 +2,7 @@ class Solution {
     static int answer = 0;
     
     public int solution(int[] numbers, int target) {
-        dfs(0, 0, numbers, target);         
+        dfs(0, 0, numbers, target);
         return answer;
     }
     
