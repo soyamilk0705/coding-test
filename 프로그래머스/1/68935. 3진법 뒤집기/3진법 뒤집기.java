@@ -2,25 +2,25 @@ import java.util.*;
 
 class Solution {
     public int solution(int n) {
-        String strVal = "";
-        int answer = 0;
-        int multi = 1;
+        StringBuilder sb = new StringBuilder();
         
         while(n > 0){
-            strVal = strVal + String.valueOf(n % 3);    
+            sb.append(String.valueOf(n % 3));
             n /= 3;
         }
         
-        String[] strArr = strVal.split("");
+        int answer = 0;
         
-        for(int i=strVal.length() - 1; i >= 0; i--){
-            answer += Integer.parseInt(strArr[i]) * multi;
-            multi *= 3;
+        for(int i=0; i<sb.length(); i++){
+            int num = (int) sb.charAt(i) - '0';
+            int tmp = 1;
+            
+            for(int j=0; j<sb.length() - i - 1; j++){
+                tmp *= 3;   
+            }
+            
+            answer += num * tmp;
         }
-        
-        // 라이브러리 사용법
-        // Integer.toString(n, 3); // 10진법 -> 3진법
-        // Integer.parseInt(n, 3); // 3진법 -> 10진법
         
         return answer;
     }
