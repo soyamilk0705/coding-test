@@ -2,26 +2,24 @@ import java.util.*;
 
 class Solution {
     public String solution(String s) {
-        String answer = "";
-        String[] arr = s.split("");
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
         
-        int cnt = 0;
-        
-        for(int i=0; i<arr.length; i++){
-            if(arr[i].equals(" ")){
-                cnt = 0;
-            }else if (cnt % 2 == 0){
-                arr[i] = arr[i].toUpperCase();
-                cnt++;
-            } else if(cnt % 2 != 0){
-                arr[i] = arr[i].toLowerCase();
-                cnt++;
-            } 
-            answer += arr[i];
-            
+        for(char c : s.toCharArray()){
+            if(c == ' '){
+                sb.append(" ");
+                index = 0;
+            } else {
+                if(index % 2 == 0){
+                    sb.append(Character.toUpperCase(c));
+                } else{
+                    sb.append(Character.toLowerCase(c));
+                }
+                
+                index++;
+            }
         }
         
-        
-        return answer;
+        return sb.toString();    
     }
 }
