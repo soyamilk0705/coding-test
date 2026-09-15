@@ -2,37 +2,32 @@ import java.util.*;
 
 class Solution {
     public int solution(String s) {
-        if(s.length() == 1){
-            return 1;
-        }
         int answer = s.length();
         
-        for(int step=1; step<=s.length()/2; step++){
-            StringBuilder sb = new StringBuilder();
+        for(int i=1; i<=s.length()/2; i++){
             int cnt = 1;
-            String prefix = s.substring(0, step);
+            String prev = s.substring(0, i);
+            StringBuilder sb = new StringBuilder();
             
-            for(int j=step; j<s.length(); j+=step){
-                int len = Math.min(j+step, s.length());
-                String str = s.substring(j, len);
-                
-                if(str.equals(prefix)){
+            for(int j=i; j<s.length(); j+=i){
+                String cur = s.substring(j, Math.min(j+i, s.length()));
+                if(prev.equals(cur)){
                     cnt++;
                 } else{
                     if(cnt > 1){
                         sb.append(cnt);
                     }
-                    sb.append(prefix);
-                    
+                    sb.append(prev);
                     cnt = 1;
-                    prefix = str;
+                    prev = cur;
                 }
+                
             }
             
             if(cnt > 1){
                 sb.append(cnt);
             }
-            sb.append(prefix);
+            sb.append(prev);
             answer = Math.min(sb.length(), answer);
         }
         
