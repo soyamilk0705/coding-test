@@ -2,21 +2,25 @@ import java.util.*;
 
 class Solution {
     public int[] solution(String s) {
-        int[] answer = new int[2];
-        int sLength = 0;
-        int zeroCount = 0;
+        int zeroCnt = 0;
+        int cnt = 0;
         
-        while(!s.equals("1")){
-            answer[1] += s.length();
-            s = s.replace("0", "");
-            sLength = s.length();
-            s = Integer.toBinaryString(sLength);
-            answer[0]++;
-            answer[1] -= sLength;
+        while(!s.equals("1")) {
+            int oneCnt = 0;
+        
+            for(char c : s.toCharArray()){
+                if(c == '1'){
+                    oneCnt++;
+                } else {
+                    zeroCnt++;
+                }
+            }
+
+            s = Integer.toBinaryString(oneCnt);
+            cnt++;
         }
         
         
-       
-        return answer;
+        return new int[]{cnt, zeroCnt};
     }
 }
