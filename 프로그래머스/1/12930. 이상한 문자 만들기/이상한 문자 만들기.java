@@ -3,23 +3,23 @@ import java.util.*;
 class Solution {
     public String solution(String s) {
         StringBuilder sb = new StringBuilder();
-        int index = 0;
+        int idx = 0;
         
         for(char c : s.toCharArray()){
             if(c == ' '){
                 sb.append(" ");
-                index = 0;
-            } else {
-                if(index % 2 == 0){
-                    sb.append(Character.toUpperCase(c));
-                } else{
+                idx = 0;
+            } else{
+                if(idx % 2 != 0){
                     sb.append(Character.toLowerCase(c));
+                } else{
+                    sb.append(Character.toUpperCase(c));
                 }
-                
-                index++;
+                idx++;
             }
         }
         
-        return sb.toString();    
+        
+        return sb.toString();
     }
 }
