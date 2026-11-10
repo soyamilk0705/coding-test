@@ -3,16 +3,16 @@ import java.util.*;
 class Solution {
     public String solution(int[] numbers) {
         String answer = "";
-        List<String> numberList = new ArrayList<>();
+        List<String> nums = new ArrayList<>();
         
-        for(int num : numbers){
-            numberList.add(String.valueOf(num));
+        for(int n : numbers){
+            nums.add(String.valueOf(n));
         }
         
-        numberList.sort((a, b) -> (b+a).compareTo(a+b));
+        nums.sort((a, b) -> (b+a).compareTo(a+b));
         
-        for(String num : numberList){
-            answer += num;
+        for(String str : nums){
+            answer += str;
         }
         
         if(answer.startsWith("0")){
