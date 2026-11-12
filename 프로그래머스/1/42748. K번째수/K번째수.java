@@ -10,9 +10,10 @@ class Solution {
             int v = commands[i][2] - 1;
             
             int[] arr = Arrays.copyOfRange(array, s, e);
-            
             Arrays.sort(arr);
+            
             answer[i] = arr[v];
+            
         }
         
         return answer;
