@@ -5,18 +5,15 @@ class Solution {
         int zeroCnt = 0;
         int cnt = 0;
         
-        while(!s.equals("1")) {
-            int oneCnt = 0;
-        
+        while(!s.equals("1")){
             for(char c : s.toCharArray()){
-                if(c == '1'){
-                    oneCnt++;
-                } else {
+                if(c == '0'){
                     zeroCnt++;
                 }
             }
-
-            s = Integer.toBinaryString(oneCnt);
+            s = s.replace("0", "");
+            int len = s.length();
+            s = Integer.toBinaryString(len);
             cnt++;
         }
         
