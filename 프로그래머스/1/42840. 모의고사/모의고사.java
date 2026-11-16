@@ -2,8 +2,7 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] answers) {
-        List<Integer> answer = new ArrayList<>();
-        int[][] solution = {
+        int[][] value = {
             {1, 2, 3, 4, 5},
             {2, 1, 2, 3, 2, 4, 2, 5},
             {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}
@@ -13,24 +12,28 @@ class Solution {
         
         for(int i=0; i<answers.length; i++){
             for(int j=0; j<3; j++){
-                int n = solution[j].length;
-                if(answers[i] == solution[j][i % n]){
+                int len = i % value[j].length;
+                
+                if(answers[i] == value[j][len]){
                     cnt[j]++;
                 }
             }
+            
         }
+        
         
         int max = Arrays.stream(cnt).max().getAsInt();
         
-        for(int i=0; i<cnt.length; i++){
+        List<Integer> answer = new ArrayList<>();
+        
+        for(int i=0; i<3; i++){
             if(cnt[i] == max){
-                answer.add(i+1);
+                answer.add(i+1);        
             }
         }
         
+        return answer.stream().mapToInt(Integer::intValue).toArray();
         
-        return answer.stream()
-            .mapToInt(Integer::intValue)
-            .toArray();
+        
     }
 }
