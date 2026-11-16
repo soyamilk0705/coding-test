@@ -11,12 +11,14 @@ class Solution {
                     zeroCnt++;
                 }
             }
+            
             s = s.replace("0", "");
-            int len = s.length();
-            s = Integer.toBinaryString(len);
             cnt++;
+            
+            s = Integer.toBinaryString(s.length());
         }
         
+       
         
         return new int[]{cnt, zeroCnt};
     }
